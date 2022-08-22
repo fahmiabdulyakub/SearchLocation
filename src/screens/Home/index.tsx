@@ -1,9 +1,9 @@
-import {View} from 'react-native';
+import {ScrollView, View} from 'react-native';
 import React, {useState} from 'react';
 import styles from './styles';
 import MapView from 'react-native-maps';
 import {Maps} from 'constants/index';
-import {SearchInput} from 'components';
+import {ListLocation, SearchInput} from 'components';
 
 const Home = () => {
   const [location, setLocation] = useState('');
@@ -20,6 +20,9 @@ const Home = () => {
       />
       <View style={styles.containerSearch}>
         <SearchInput value={location} onChangeText={setLocation} />
+        <ScrollView style={styles.containerItem}>
+          <ListLocation title="Masjid Arrohim" description="Jl. Dahlia no 3" />
+        </ScrollView>
       </View>
     </View>
   );

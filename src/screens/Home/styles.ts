@@ -17,6 +17,9 @@ const styles = StyleSheet.create({
     marginLeft: wp(5),
     height: hp(63),
   },
+  containerItem: {
+    marginTop: hp(2),
+  },
 });
 
 export default styles;
