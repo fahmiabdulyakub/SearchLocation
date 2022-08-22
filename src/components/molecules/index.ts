@@ -1,2 +1,3 @@
 import SearchInput from './SearchInput';
-export {SearchInput};
+import ListLocation from './ListLocation';
+export {SearchInput, ListLocation};
