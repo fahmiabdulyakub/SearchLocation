@@ -5,6 +5,7 @@ const initialstate = {
         lat: 0,
         lng: 0,
       },
+      accuracy: 0,
     },
   },
 };
