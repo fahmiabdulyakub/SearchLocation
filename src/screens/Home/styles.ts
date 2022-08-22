@@ -11,6 +11,12 @@ const styles = StyleSheet.create({
     width: wp(100),
     height: hp(100),
   },
+  containerSearch: {
+    position: 'absolute',
+    marginTop: hp(3),
+    marginLeft: wp(5),
+    height: hp(63),
+  },
 });
 
 export default styles;

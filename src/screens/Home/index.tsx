@@ -1,10 +1,12 @@
 import {View} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import styles from './styles';
 import MapView from 'react-native-maps';
 import {Maps} from 'constants/index';
+import {SearchInput} from 'components';
 
 const Home = () => {
+  const [location, setLocation] = useState('');
   return (
     <View style={styles.container}>
       <MapView
@@ -16,6 +18,9 @@ const Home = () => {
           longitudeDelta: Maps.longitudeDelta,
         }}
       />
+      <View style={styles.containerSearch}>
+        <SearchInput value={location} onChangeText={setLocation} />
+      </View>
     </View>
   );
 };
