@@ -1,5 +1,6 @@
 import React from 'react';
 import {SafeAreaView, StatusBar, StyleSheet} from 'react-native';
+import {Provider as PaperProvider} from 'react-native-paper';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer} from '@react-navigation/native';
 import Colors from 'themes/Colors';
@@ -10,18 +11,20 @@ const Stack = createNativeStackNavigator<StackParams>();
 
 export const Routes = () => {
   return (
-    <NavigationContainer>
-      <SafeAreaView style={styles.SafeAreaView}>
-        <StatusBar backgroundColor={Colors.white} barStyle="dark-content" />
-        <Stack.Navigator initialRouteName="Home">
-          <Stack.Screen
-            name="Home"
-            component={Home}
-            options={{headerShown: false}}
-          />
-        </Stack.Navigator>
-      </SafeAreaView>
-    </NavigationContainer>
+    <PaperProvider>
+      <NavigationContainer>
+        <SafeAreaView style={styles.SafeAreaView}>
+          <StatusBar backgroundColor={Colors.white} barStyle="dark-content" />
+          <Stack.Navigator initialRouteName="Home">
+            <Stack.Screen
+              name="Home"
+              component={Home}
+              options={{headerShown: false}}
+            />
+          </Stack.Navigator>
+        </SafeAreaView>
+      </NavigationContainer>
+    </PaperProvider>
   );
 };
 
