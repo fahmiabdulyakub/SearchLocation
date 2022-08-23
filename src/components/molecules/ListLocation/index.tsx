@@ -20,6 +20,7 @@ const ListLocation = ({title, description, onPress}: PropsType) => {
       )}
       style={styles.listItem}
       theme={{colors: {text: Colors.black}}}
+      rippleColor={Colors.dark_gray}
       onPress={onPress}
     />
   );
