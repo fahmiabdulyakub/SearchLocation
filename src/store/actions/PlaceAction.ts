@@ -9,7 +9,7 @@ export const getPlaceList =
     return new Promise(() => {
       axios
         .get(
-          `${Config.PLACE_URL}json?input=${data.input}&types=${data.types}&location=${data.location}&radius=${data.radius}&key=${data.key}`,
+          `${Config.PLACE_URL}autocomplete/json?input=${data.input}&types=${data.types}&location=${data.location}&radius=${data.radius}&key=${data.key}`,
         )
         .then(result => {
           dispatch({
