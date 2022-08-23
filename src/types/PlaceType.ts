@@ -1,5 +1,3 @@
-import {LocationType} from './UserDataType';
-
 export interface PlaceType {
   predictions?: PredictionsType[] | null;
   status: string;

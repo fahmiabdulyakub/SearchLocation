@@ -2,7 +2,7 @@
 import {ScrollView, View} from 'react-native';
 import React, {Dispatch, useEffect, useRef, useState} from 'react';
 import styles from './styles';
-import MapView from 'react-native-maps';
+import MapView, {Marker} from 'react-native-maps';
 import {Maps, UPDATE_PLACE_DATA} from 'constants/index';
 import {ListLocation, SearchInput} from 'components';
 import {getUserInfo} from 'store/actions';
@@ -84,8 +84,14 @@ const Home = () => {
           longitude: locationDetails.lng,
           latitudeDelta: Maps.latitudeDelta,
           longitudeDelta: Maps.longitudeDelta,
-        }}
-      />
+        }}>
+        <Marker
+          coordinate={{
+            latitude: locationDetails.lat,
+            longitude: locationDetails.lng,
+          }}
+        />
+      </MapView>
       <View style={styles.containerSearch}>
         <SearchInput
           ref={searchInputRef}
