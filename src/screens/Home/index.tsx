@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {ScrollView, View} from 'react-native';
 import React, {Dispatch, useEffect, useRef, useState} from 'react';
 import styles from './styles';
@@ -7,18 +8,21 @@ import {ListLocation, SearchInput} from 'components';
 import {getUserInfo} from 'store/actions';
 import {shallowEqual, useDispatch, useSelector} from 'react-redux';
 import {GlobalType} from 'types/GlobalType';
-import {UserDataType} from 'types/UserDataType';
+import {LocationType, UserDataType} from 'types/UserDataType';
 import Config from 'react-native-config';
-import {getPlaceList} from 'store/actions/PlaceAction';
+import {getPlaceDetails, getPlaceList} from 'store/actions/PlaceAction';
 import {PredictionsType} from 'types/PlaceType';
 import {SearchInputRefType} from 'components/molecules/SearchInput/types';
 
 const Home = () => {
-  const [searchLocation, setSearchLocation] = useState<string>('');
-  const [location, setLocation] = useState<PredictionsType | null>(null);
   const userData = useSelector<GlobalType, UserDataType>(
     state => state.user.userData,
     shallowEqual,
+  );
+  const [searchLocation, setSearchLocation] = useState<string>('');
+  const [location, setLocation] = useState<PredictionsType | null>(null);
+  const [locationDetails, setLocationDetails] = useState<LocationType>(
+    userData.location,
   );
   const searchInputRef = useRef<SearchInputRefType>();
 
@@ -40,15 +44,26 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(getUserInfo());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
+    setLocationDetails(userData.location);
+  }, [userData]);
+
+  useEffect(() => {
     dispatch(getPlaceList(dataPlace));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchLocation]);
 
   const onPressLocation = (item: PredictionsType) => {
+    const dataPlaceId = {
+      key: Config.API_KEY,
+      place_id: item.place_id,
+    };
+
+    getPlaceDetails(dataPlaceId).then((result: any) => {
+      setLocationDetails(result.location);
+    });
+
     searchInputRef.current?.blur();
     setLocation(item);
     setSearchLocation('');
@@ -61,11 +76,12 @@ const Home = () => {
   return (
     <View style={styles.container}>
       <MapView
-        zoomEnabled
+        zoomControlEnabled
+        loadingEnabled
         style={styles.map}
         region={{
-          latitude: userData.location.lat,
-          longitude: userData.location.lng,
+          latitude: locationDetails.lat,
+          longitude: locationDetails.lng,
           latitudeDelta: Maps.latitudeDelta,
           longitudeDelta: Maps.longitudeDelta,
         }}
