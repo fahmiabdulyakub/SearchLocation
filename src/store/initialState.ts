@@ -8,6 +8,9 @@ const initialstate = {
       accuracy: 0,
     },
   },
+  place: {
+    predictions: [],
+  },
 };
 
 export default initialstate;
