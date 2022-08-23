@@ -8,7 +8,6 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.white,
   },
   map: {
-    width: wp(100),
     height: hp(100),
   },
   containerSearch: {
