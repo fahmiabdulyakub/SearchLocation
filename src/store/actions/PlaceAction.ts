@@ -2,15 +2,13 @@ import {UPDATE_PLACE_DATA} from 'constants/index';
 import {Dispatch} from 'redux';
 import axios from 'axios';
 import Config from 'react-native-config';
-import {RequestPlaceType} from 'types/PlaceType';
+import {RequestPlaceType, RequestPlaceDetailsType} from 'types/PlaceType';
 
 export const getPlaceList =
   (data: RequestPlaceType) => (dispatch: Dispatch) => {
     return new Promise(() => {
       axios
-        .get(
-          `${Config.PLACE_URL}autocomplete/json?input=${data.input}&types=${data.types}&location=${data.location}&radius=${data.radius}&key=${data.key}`,
-        )
+        .get(`${Config.PLACE_URL}autocomplete/json`, {params: data})
         .then(result => {
           dispatch({
             type: UPDATE_PLACE_DATA,
@@ -22,3 +20,16 @@ export const getPlaceList =
         });
     });
   };
+
+export const getPlaceDetails = (data: RequestPlaceDetailsType) => {
+  return new Promise(resolve => {
+    axios
+      .get(`${Config.PLACE_URL}details/json`, {params: data})
+      .then(result => {
+        resolve(result.data.result.geometry);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  });
+};
